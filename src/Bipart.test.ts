@@ -25,7 +25,7 @@ describe(Bipart.name, () => {
 
   it("Should initialize map from 2 empty arrays", () => {
     const map = Bipart.fromArrays([], []);
-    expect(map.get(1)).toBeUndefined;
+    expect(map.get(1)).toBeUndefined();
   });
 
   it("Should handle undefined set", () => {
