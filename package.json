@@ -14,7 +14,6 @@
     "testEnvironment": "node",
     "testRegex": "\\.test.ts$"
   },
-
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "jest": "^27.3.1",
