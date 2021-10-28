@@ -56,11 +56,16 @@ mapFromObject.hasValue(2) // true
 mapFromObject.hasValue(999) // false
 
 
+// Keys, Values 
+mapFromObject.keys() //=> keys iterator
+mapFromObject.values() //=> values iterator
+
 // Size
 mapAny.size // =>  1
 
 // Clear 
 mapAny.clear()
+
 
 
 

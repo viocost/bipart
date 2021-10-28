@@ -1,9 +1,9 @@
 export class Bipart<KT, VT> {
-  private keys: Map<KT, VT> = new Map();
-  private values: Map<VT, KT> = new Map();
+  private _keys: Map<KT, VT> = new Map();
+  private _values: Map<VT, KT> = new Map();
 
   [Symbol.iterator] = function* () {
-    for (const [key, value] of this.keys) {
+    for (const [key, value] of this._keys) {
       yield [key, value];
     }
   };
@@ -13,7 +13,7 @@ export class Bipart<KT, VT> {
     values: Array<VT>
   ): Bipart<KT, VT> {
     if (!Array.isArray(keys) || !Array.isArray(values)) {
-      throw new Error("The input must be array of keys and array of values");
+      throw new Error("The input must be array of _keys and array of _values");
     }
     if (keys.length != values.length) {
       throw new Error(
@@ -39,52 +39,60 @@ export class Bipart<KT, VT> {
     this.delete(key);
     this.deleteValue(value);
     if (key === undefined || value === undefined) return;
-    this.keys.set(key, value);
-    this.values.set(value, key);
+    this._keys.set(key, value);
+    this._values.set(value, key);
     return this;
   }
 
   get(key: KT): VT | undefined {
-    return this.keys.get(key);
+    return this._keys.get(key);
   }
 
   getKey(value: VT): KT | undefined {
-    return this.values.get(value);
+    return this._values.get(value);
   }
 
   delete(key: KT): boolean {
-    const value = this.keys.get(key) as VT;
+    const value = this._keys.get(key) as VT;
     return !!(
-      Number(this.values.delete(value)) | Number(this.keys.delete(key))
+      Number(this._values.delete(value)) | Number(this._keys.delete(key))
     );
   }
 
   deleteValue(value: VT): boolean {
-    const key = this.values.get(value) as KT;
+    const key = this._values.get(value) as KT;
     return !!(
-      Number(this.keys.delete(key)) | Number(this.values.delete(value))
+      Number(this._keys.delete(key)) | Number(this._values.delete(value))
     );
   }
 
   has(key: KT): boolean {
-    return this.keys.has(key);
+    return this._keys.has(key);
   }
 
   hasValue(value: VT): boolean {
-    return this.values.has(value);
+    return this._values.has(value);
   }
 
   clear(): void {
-    for (const key of this.keys.keys()) {
-      this.keys.delete(key);
+    for (const key of this._keys.keys()) {
+      this._keys.delete(key);
     }
 
-    for (const value of this.values.keys()) {
-      this.values.delete(value);
+    for (const value of this._values.keys()) {
+      this._values.delete(value);
     }
   }
 
+  keys(): IterableIterator<KT> {
+    return this._keys.keys();
+  }
+
+  values(): IterableIterator<VT> {
+    return this._keys.values();
+  }
+
   get size(): number {
-    return this.keys.size;
+    return this._keys.size;
   }
 }

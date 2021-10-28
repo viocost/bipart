@@ -1,6 +1,6 @@
 {
   "name": "bipart",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -22,5 +22,11 @@
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
-  }
+  },
+  "keywords": [
+    "map",
+    "bimap",
+    "bipart",
+    "bidirectional"
+  ]
 }

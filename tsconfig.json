@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "moduleResolution": "node",
+    "downlevelIteration": true,
     "declaration": true,
     "target": "es5",
     "skipLibCheck": true,

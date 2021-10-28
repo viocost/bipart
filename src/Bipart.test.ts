@@ -113,6 +113,20 @@ describe(Bipart.name, () => {
     map.clear();
     expect(map.size).toBe(0);
   });
+
+  it("Should be able to get keys and values from map", () => {
+    const map = getTestMap();
+
+    for (const key of map.keys()) {
+      expect(map.has(key)).toBeTruthy();
+    }
+
+    for (const val of map.values()) {
+      expect(map.hasValue(val)).toBeTruthy();
+    }
+
+    expect(Array.from(map.keys())).toEqual(["a", "b", "c"]);
+  });
 });
 
 function getTestMap() {
