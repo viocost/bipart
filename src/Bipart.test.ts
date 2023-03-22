@@ -3,12 +3,11 @@ import { Bipart } from "./Bipart";
 describe(Bipart.name, () => {
   it("Should initialize empty map", () => {
     const map = new Bipart();
-    const mapTyped = new Bipart<string, number>();
     expect(map).toBeDefined();
   });
 
   it("Should initialize map from object", () => {
-    const map = new Bipart({
+    const map = Bipart.fromObject({
       a: 1,
       b: 2,
     });
@@ -130,7 +129,7 @@ describe(Bipart.name, () => {
 });
 
 function getTestMap() {
-  return new Bipart({
+  return Bipart.fromObject<any>({
     a: 1,
     b: 2,
     c: 3,

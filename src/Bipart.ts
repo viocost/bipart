@@ -1,12 +1,13 @@
-export class Bipart<KT, VT> {
+export class Bipart<KT = any, VT = any> {
   private _keys: Map<KT, VT> = new Map();
   private _values: Map<VT, KT> = new Map();
 
-  [Symbol.iterator] = function* () {
-    for (const [key, value] of this._keys) {
-      yield [key, value];
-    }
-  };
+  static fromObject<OT extends string, VT = any>(obj: Record<OT, VT>) {
+    return Object.entries<VT>(obj).reduce((acc, [key, value]) => {
+      acc.set(key as OT, value);
+      return acc;
+    }, new Bipart<OT, VT>());
+  }
 
   static fromArrays<KT = any, VT = any>(
     keys: Array<KT>,
@@ -27,12 +28,13 @@ export class Bipart<KT, VT> {
     }, new Bipart<KT, VT>());
   }
 
-  constructor(obj?: {}) {
-    if (obj) {
-      for (const key in obj) {
-        this.set(key as unknown as KT, obj[key]);
+  [Symbol.iterator](): IterableIterator<[KT, VT]> {
+    const iterator = function* (this: Bipart<KT, VT>) {
+      for (const [key, value] of this._keys) {
+        yield [key, value] as [KT, VT];
       }
-    }
+    };
+    return iterator.call(this);
   }
 
   set(key: KT, value: VT) {
